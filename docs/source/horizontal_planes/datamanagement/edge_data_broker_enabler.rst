@@ -158,27 +158,27 @@ Using the kubectl command:
 ::
 
   $ kubectl get all -o wide
-NAME                                                READY   STATUS    RESTARTS   AGE   IP          NODE             NOMINATED NODE   READINESS GATES
-pod/edge-data-broker-pubsubscript-9496b7ff4-58fcq   1/1     Running   0          51s   10.1.0.12   docker-desktop   <none>           <none>
-pod/edge-data-broker-vernemq-0                      1/1     Running   0          51s   10.1.0.13   docker-desktop   <none>           <none>
-pod/edge-data-broker-vernemq-1                      1/1     Running   0          33s   10.1.0.14   docker-desktop   <none>           <none>
-
-NAME                                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE   SELECTOR
-service/edbe-vernemq-svc1                    NodePort    10.102.96.200   <none>        1883:31883/TCP   51s   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=vernemq,enabler=edge-data-broker,isMainInterface=yes,tier=internal
-service/edge-data-broker-pubsubscript-svc1   NodePort    10.108.56.231   <none>        8000:31553/TCP   51s   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,tier=internal
-service/edge-data-broker-vernemq-headless    ClusterIP   None            <none>        1883/TCP         51s   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=vernemq,enabler=edge-data-broker,isMainInterface=yes,tier=internal
-service/kubernetes                           ClusterIP   10.96.0.1       <none>        443/TCP          10m   <none>
-
-NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS     IMAGES                               SELECTOR
-deployment.apps/edge-data-broker-pubsubscript   1/1     1            1           51s   pubsubscript   kostasiccs/filtering-script:latest   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,tier=internal
-
-NAME                                                      DESIRED   CURRENT   READY   AGE   CONTAINERS     IMAGES                               SELECTOR
-replicaset.apps/edge-data-broker-pubsubscript-9496b7ff4   1         1         1       51s   pubsubscript   kostasiccs/filtering-script:latest   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,pod-template-hash=9496b7ff4,tier=internal
-
-NAME                                        READY   AGE   CONTAINERS   IMAGES
-statefulset.apps/edge-data-broker-vernemq   2/2     51s   vernemq      vernemq/vernemq:latest
-
-Also, the python scripts (provided in the User Guide section above) with the correct IP and PORT values can be used for testing.
+  NAME                                                READY   STATUS    RESTARTS   AGE   IP          NODE             NOMINATED NODE   READINESS GATES
+  pod/edge-data-broker-pubsubscript-9496b7ff4-58fcq   1/1     Running   0          51s   10.1.0.12   docker-desktop   <none>           <none>
+  pod/edge-data-broker-vernemq-0                      1/1     Running   0          51s   10.1.0.13   docker-desktop   <none>           <none>
+  pod/edge-data-broker-vernemq-1                      1/1     Running   0          33s   10.1.0.14   docker-desktop   <none>           <none>
+  
+  NAME                                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE   SELECTOR
+  service/edbe-vernemq-svc1                    NodePort    10.102.96.200   <none>        1883:31883/TCP   51s       app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=vernemq,enabler=edge-data-broker,isMainInterface=yes,tier=internal
+  service/edge-data-broker-pubsubscript-svc1   NodePort    10.108.56.231   <none>        8000:31553/TCP   51s   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,tier=internal
+  service/edge-data-broker-vernemq-headless    ClusterIP   None            <none>        1883/TCP         51s   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=vernemq,enabler=edge-data-broker,isMainInterface=yes,tier=internal
+  service/kubernetes                           ClusterIP   10.96.0.1       <none>        443/TCP          10m   <none>
+  
+  NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS     IMAGES                               SELECTOR
+  deployment.apps/edge-data-broker-pubsubscript   1/1     1            1           51s   pubsubscript   kostasiccs/filtering-script:latest   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,tier=internal
+  
+  NAME                                                      DESIRED   CURRENT   READY   AGE   CONTAINERS     IMAGES                               SELECTOR
+  replicaset.apps/edge-data-broker-pubsubscript-9496b7ff4   1         1         1       51s   pubsubscript   kostasiccs/filtering-script:latest   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,pod-template-hash=9496b7ff4,tier=internal
+  
+  NAME                                        READY   AGE   CONTAINERS   IMAGES
+  statefulset.apps/edge-data-broker-vernemq   2/2     51s   vernemq      vernemq/vernemq:latest
+  
+ Also, the python scripts (provided in the User Guide section above) with the correct IP and PORT values can be used for testing.
 
 *********************
 Configuration options
