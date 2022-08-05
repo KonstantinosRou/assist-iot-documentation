@@ -131,42 +131,19 @@ Prerequisites
 ***************
 The Edge Data Broker enabler is designed to be executed on a cluster of devices on ARM64 
 architecture. It can be executed of course on a x86 architecture as well by changing the 
-docker image. It also requires Docker for building a new image and kubernetes/helm3 to
-deploy the enabler on a cluster.
+docker image. 
 
 ***************
 Installation
 ***************
 
-Building the Docker image
---------------------------
-On the Docker folder execute:
-::
-
-  $ docker build . -t edb:latest
-
-This will create the image. It should be visible with:
-::
-
-  $ docker images
-
-To push the image to a registry (using a local registry for this example):
-:: 
-
-  $ docker tag edb:latest localhost:32000/edb:latest
-
-  $ docker tag edb:latest localhost:32000/edb:latest
-
-Now we can use this image in kubernetes and helm.
-
 Deploying with Kubernetes and Helm3
 ------------------------------------
 
-On the Helm folder execute:
+Execute:
 ::
 
-  $ cp values.yaml values.yaml.bu
-  $ helm3 install edb -f values.yaml .
+  $ helm3 install edb -f ./edge-data-broker
 
 This will install the enabler. To uninstall:
 ::
@@ -181,19 +158,25 @@ Using the kubectl command:
 ::
 
   $ kubectl get all -o wide
-  NAME        READY   STATUS    RESTARTS   AGE   IP             NODE     NOMINATED NODE   READINESS GATES
-  pod/edb-0   1/1     Running   0          9d    10.1.196.152   node01   <none>           <none>
-  pod/edb-1   1/1     Running   0          9d    10.1.140.84    node02   <none>           <none>
+NAME                                                READY   STATUS    RESTARTS   AGE   IP          NODE             NOMINATED NODE   READINESS GATES
+pod/edge-data-broker-pubsubscript-9496b7ff4-58fcq   1/1     Running   0          51s   10.1.0.12   docker-desktop   <none>           <none>
+pod/edge-data-broker-vernemq-0                      1/1     Running   0          51s   10.1.0.13   docker-desktop   <none>           <none>
+pod/edge-data-broker-vernemq-1                      1/1     Running   0          33s   10.1.0.14   docker-desktop   <none>           <none>
 
-  NAME                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE   SELECTOR
-  service/kubernetes     ClusterIP   10.152.183.1     <none>        443/TCP                         15d   <none>
-  service/edb-headless   ClusterIP   None             <none>        4369/TCP,8888/TCP               9d    
-  app.kubernetes.io/instance=edb,app.kubernetes.io/name=edb
-  service/edb            NodePort    10.152.183.168   <none>        1883:31883/TCP,8888:30888/TCP   9d    
-  app.kubernetes.io/instance=edb,app.kubernetes.io/name=edb
+NAME                                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE   SELECTOR
+service/edbe-vernemq-svc1                    NodePort    10.102.96.200   <none>        1883:31883/TCP   51s   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=vernemq,enabler=edge-data-broker,isMainInterface=yes,tier=internal
+service/edge-data-broker-pubsubscript-svc1   NodePort    10.108.56.231   <none>        8000:31553/TCP   51s   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,tier=internal
+service/edge-data-broker-vernemq-headless    ClusterIP   None            <none>        1883/TCP         51s   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=vernemq,enabler=edge-data-broker,isMainInterface=yes,tier=internal
+service/kubernetes                           ClusterIP   10.96.0.1       <none>        443/TCP          10m   <none>
 
-  NAME                   READY   AGE   CONTAINERS   IMAGES
-  statefulset.apps/edb   2/2     9d    edb          localhost:32000/edb:latest
+NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS     IMAGES                               SELECTOR
+deployment.apps/edge-data-broker-pubsubscript   1/1     1            1           51s   pubsubscript   kostasiccs/filtering-script:latest   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,tier=internal
+
+NAME                                                      DESIRED   CURRENT   READY   AGE   CONTAINERS     IMAGES                               SELECTOR
+replicaset.apps/edge-data-broker-pubsubscript-9496b7ff4   1         1         1       51s   pubsubscript   kostasiccs/filtering-script:latest   app.kubernetes.io/instance=edb,app.kubernetes.io/name=edge-data-broker,component=pubsubscript,enabler=edge-data-broker,isMainInterface=no,pod-template-hash=9496b7ff4,tier=internal
+
+NAME                                        READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/edge-data-broker-vernemq   2/2     51s   vernemq      vernemq/vernemq:latest
 
 Also, the python scripts (provided in the User Guide section above) with the correct IP and PORT values can be used for testing.
 
@@ -469,7 +452,12 @@ The following table lists the configurable parameters of the chart and their def
 ***************
 Developer guide
 ***************
+The Edge Data Broker enabler is designed to be executed on a cluster of devices on ARM64 
+architecture. It can be executed of course on a x86 architecture as well by changing the 
+docker image. 
 
+ARM64 architecture image: kostasiccs/vernemq
+x86 architecture image: vernemq/vernemq (official vernemq image)
 
 ***************************
 Version control and release
