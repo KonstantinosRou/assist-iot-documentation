@@ -456,8 +456,9 @@ The Edge Data Broker enabler is designed to be executed on a cluster of devices 
 architecture. It can be executed of course on a x86 architecture as well by changing the 
 docker image. 
 
-ARM64 architecture image: kostasiccs/vernemq
-x86 architecture image: vernemq/vernemq (official vernemq image)
+  ARM64 architecture image: kostasiccs/vernemq
+  
+  x86 architecture image: vernemq/vernemq (official vernemq image)
 
 ***************************
 Version control and release
