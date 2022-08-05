@@ -118,6 +118,13 @@ to a topic and publishes messages to it.
 
 Executing those two scripts will produce and consume json messages to the Edge Data Broker.
 
+For changing the ruling & filtering json file which provides the logic for filtering the messages that passes 
+through Edge Data Broker an API is provided.
+
+Port forward edge-data-broker-pubsubscript at port 8000.
+Get request http://localhost:8000 to check the json example provided.
+Change the json regarding the needs of the message filtering.
+Post request http://localhost:8000 by adding to the body of the request the changed json.
 ***************
 Prerequisites
 ***************
