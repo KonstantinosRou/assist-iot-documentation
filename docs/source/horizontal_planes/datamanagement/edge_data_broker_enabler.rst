@@ -125,6 +125,7 @@ Port forward edge-data-broker-pubsubscript at port 8000.
 Get request http://localhost:8000 to check the json example provided.
 Change the json regarding the needs of the message filtering.
 Post request http://localhost:8000 by adding to the body of the request the changed json.
+
 ***************
 Prerequisites
 ***************
